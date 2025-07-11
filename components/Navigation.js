@@ -1,10 +1,11 @@
+// ===== NAVIGATION COMPONENT =====
 // components/Navigation.js
 'use client';
 
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { Button, Container } from './styled';
+import { Button } from './styled';
 import { FiCamera } from 'react-icons/fi';
 
 const Nav = styled.nav`
@@ -16,7 +17,10 @@ const Nav = styled.nav`
   z-index: 100;
 `;
 
-const NavContainer = styled(Container)`
+const NavContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

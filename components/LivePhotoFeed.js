@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import Image from 'next/image';
+import Modal from './Modal';
 
 const slideIn = keyframes`
   from {

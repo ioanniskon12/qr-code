@@ -1,16 +1,19 @@
-// middleware.js
-import { NextResponse } from 'next/server';
-import * as Sentry from '@sentry/nextjs';
 
-export function middleware(request) {
-  try {
-    // Your middleware logic here
+import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
+
+export default withAuth(
+  function middleware(req) {
+    // Custom middleware logic here
     return NextResponse.next();
-  } catch (error) {
-    Sentry.captureException(error);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500    }
-    );
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
   }
-}
+);
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/events/:path*', '/api/photos/:path*'],
+};

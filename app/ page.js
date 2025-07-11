@@ -99,7 +99,7 @@ export default function HomePage() {
             <FeatureCard>
               <FiCamera />
               <h3>Scan QR Code</h3>
-              <p>Guests scan your event's unique QR code to access the photo gallery</p>
+              <p>Guests scan your event s unique QR code to access the photo gallery</p>
             </FeatureCard>
             <FeatureCard>
               <FiUpload />
