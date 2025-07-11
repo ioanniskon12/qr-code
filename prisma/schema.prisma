@@ -1,5 +1,4 @@
 // prisma/schema.prisma
-/*
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,7 +12,7 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  password  String
+  password  String?
   plan      Plan     @default(FREE)
   stripeId  String?
   createdAt DateTime @default(now())
@@ -38,7 +37,7 @@ model Event {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   qrCodes     QRCode[]
   photos      Photo[]
 }
@@ -53,7 +52,7 @@ model QRCode {
   viewCount   Int       @default(0)
   createdAt   DateTime  @default(now())
   
-  event       Event     @relation(fields: [eventId], references: [id])
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
 model Photo {
@@ -61,12 +60,31 @@ model Photo {
   eventId     String
   uploaderId  String?
   url         String
+  thumbnailUrl String?
   title       String?
   tags        String[]
+  aiTags      String[]
+  analyzed    Boolean   @default(false)
   createdAt   DateTime  @default(now())
   
-  event       Event     @relation(fields: [eventId], references: [id])
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
   uploader    User?     @relation(fields: [uploaderId], references: [id])
+  detectedFaces DetectedFace[]
+}
+
+model DetectedFace {
+  id          String    @id @default(cuid())
+  photoId     String
+  personId    String?
+  personName  String?
+  descriptor  Float[]
+  boundingBox Json
+  age         Float?
+  gender      String?
+  expressions Json?
+  createdAt   DateTime  @default(now())
+  
+  photo       Photo     @relation(fields: [photoId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
@@ -81,7 +99,7 @@ model Subscription {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
   
-  user                 User     @relation(fields: [userId], references: [id])
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Plan {
@@ -89,4 +107,3 @@ enum Plan {
   SINGLE
   MULTI
 }
-*/

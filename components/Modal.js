@@ -1,27 +1,11 @@
-// components/Modal.js
 'use client';
 
 import styled, { keyframes } from 'styled-components';
 import { FiX } from 'react-icons/fi';
 
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const slideIn = keyframes`
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
 const Overlay = styled.div`
@@ -46,7 +30,6 @@ const ModalContent = styled.div`
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  animation: ${slideIn} 0.3s ease;
 `;
 
 const ModalHeader = styled.div`
@@ -62,7 +45,6 @@ const CloseButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--gray);
-  transition: color 0.3s;
   
   &:hover {
     color: var(--dark);
@@ -74,10 +56,7 @@ export default function Modal({ isOpen, onClose, title, children, maxWidth }) {
 
   return (
     <Overlay onClick={onClose}>
-      <ModalContent 
-        onClick={(e) => e.stopPropagation()} 
-        maxWidth={maxWidth}
-      >
+      <ModalContent onClick={(e) => e.stopPropagation()} maxWidth={maxWidth}>
         <ModalHeader>
           <h2>{title}</h2>
           <CloseButton onClick={onClose}>
